@@ -390,6 +390,11 @@ export default class Mattermost {
                 this.configureAnalytics(config);
             }
 
+            const {currentUserId} = state.entities.users;
+            if (currentUserId) {
+                Client4.setUserId(currentUserId);
+            }
+
             const isNotActive = AppState.currentState !== 'active';
             const notification = PushNotifications.getNotification();
             if (notification) {
