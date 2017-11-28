@@ -17,6 +17,7 @@ import SlashSuggestion from './slash_suggestion';
 
 export default class Autocomplete extends PureComponent {
     static propTypes = {
+        deviceHeight: PropTypes.number,
         onChangeText: PropTypes.func.isRequired,
         rootId: PropTypes.string,
         isSearch: PropTypes.bool,
@@ -73,7 +74,6 @@ export default class Autocomplete extends PureComponent {
         if (atMentionCount + channelMentionCount + emojiCount + commandCount > 0) {
             containerStyle.push(style.borders);
         }
-
         return (
             <View>
                 <View style={containerStyle}>
@@ -122,7 +122,6 @@ const getStyleFromTheme = makeStyleSheetFromTheme((theme) => {
         searchContainer: {
             elevation: 5,
             flex: 1,
-            maxHeight: 250,
             zIndex: 5,
             ...Platform.select({
                 android: {

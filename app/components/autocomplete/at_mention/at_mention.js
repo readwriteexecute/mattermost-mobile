@@ -7,7 +7,7 @@ import {SectionList} from 'react-native';
 
 import {RequestStatus} from 'mattermost-redux/constants';
 
-import {AT_MENTION_REGEX, AT_MENTION_SEARCH_REGEX} from 'app/constants/autocomplete';
+import {AT_MENTION_REGEX, AT_MENTION_SEARCH_REGEX, CONTAINER_HEIGHT_OFFSET} from 'app/constants/autocomplete';
 import AtMentionItem from 'app/components/autocomplete/at_mention_item';
 import AutocompleteDivider from 'app/components/autocomplete/autocomplete_divider';
 import AutocompleteSectionHeader from 'app/components/autocomplete/autocomplete_section_header';
@@ -23,6 +23,7 @@ export default class AtMention extends PureComponent {
         currentTeamId: PropTypes.string.isRequired,
         cursorPosition: PropTypes.number.isRequired,
         defaultChannel: PropTypes.object,
+        deviceHeight: PropTypes.number,
         inChannel: PropTypes.array,
         isSearch: PropTypes.bool,
         matchTerm: PropTypes.string,
@@ -202,7 +203,7 @@ export default class AtMention extends PureComponent {
     };
 
     render() {
-        const {isSearch, theme} = this.props;
+        const {deviceHeight, isSearch, theme} = this.props;
         const {mentionComplete, sections} = this.state;
 
         if (sections.length === 0 || mentionComplete) {
@@ -217,7 +218,7 @@ export default class AtMention extends PureComponent {
             <SectionList
                 keyboardShouldPersistTaps='always'
                 keyExtractor={this.keyExtractor}
-                style={[style.listView, isSearch ? style.search : null]}
+                style={[style.listView, isSearch ? style.search : null, {height: deviceHeight - CONTAINER_HEIGHT_OFFSET}]}
                 sections={sections}
                 renderItem={this.renderItem}
                 renderSectionHeader={this.renderSectionHeader}

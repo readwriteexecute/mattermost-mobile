@@ -19,7 +19,7 @@ import {getTheme} from 'mattermost-redux/selectors/entities/preferences';
 import ChannelMention from './channel_mention';
 
 function mapStateToProps(state, ownProps) {
-    const {cursorPosition, isSearch} = ownProps;
+    const {cursorPosition, deviceHeight, isSearch} = ownProps;
 
     const value = ownProps.value.substring(0, cursorPosition);
     const matchTerm = getMatchTermForChannelMention(value, isSearch);
@@ -37,6 +37,7 @@ function mapStateToProps(state, ownProps) {
     }
 
     return {
+        deviceHeight,
         myChannels,
         otherChannels,
         publicChannels,

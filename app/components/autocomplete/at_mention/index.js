@@ -19,7 +19,7 @@ import {getTheme} from 'mattermost-redux/selectors/entities/preferences';
 import AtMention from './at_mention';
 
 function mapStateToProps(state, ownProps) {
-    const {cursorPosition, isSearch} = ownProps;
+    const {cursorPosition, deviceHeight, isSearch} = ownProps;
     const currentChannelId = getCurrentChannelId(state);
 
     const value = ownProps.value.substring(0, cursorPosition);
@@ -39,6 +39,7 @@ function mapStateToProps(state, ownProps) {
         currentChannelId,
         currentTeamId: getCurrentTeamId(state),
         defaultChannel: getDefaultChannel(state),
+        deviceHeight,
         matchTerm,
         teamMembers,
         inChannel,

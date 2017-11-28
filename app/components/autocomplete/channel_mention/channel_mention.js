@@ -7,7 +7,7 @@ import {SectionList} from 'react-native';
 
 import {RequestStatus} from 'mattermost-redux/constants';
 
-import {CHANNEL_MENTION_REGEX, CHANNEL_MENTION_SEARCH_REGEX} from 'app/constants/autocomplete';
+import {CHANNEL_MENTION_REGEX, CHANNEL_MENTION_SEARCH_REGEX, CONTAINER_HEIGHT_OFFSET} from 'app/constants/autocomplete';
 import AutocompleteDivider from 'app/components/autocomplete/autocomplete_divider';
 import AutocompleteSectionHeader from 'app/components/autocomplete/autocomplete_section_header';
 import ChannelMentionItem from 'app/components/autocomplete/channel_mention_item';
@@ -20,6 +20,7 @@ export default class ChannelMention extends PureComponent {
         }).isRequired,
         currentTeamId: PropTypes.string.isRequired,
         cursorPosition: PropTypes.number.isRequired,
+        deviceHeight: PropTypes.number,
         isSearch: PropTypes.bool,
         matchTerm: PropTypes.string,
         myChannels: PropTypes.array,
@@ -166,7 +167,7 @@ export default class ChannelMention extends PureComponent {
     };
 
     render() {
-        const {isSearch, theme} = this.props;
+        const {deviceHeight, isSearch, theme} = this.props;
         const {mentionComplete, sections} = this.state;
 
         if (sections.length === 0 || mentionComplete) {
@@ -181,7 +182,7 @@ export default class ChannelMention extends PureComponent {
             <SectionList
                 keyboardShouldPersistTaps='always'
                 keyExtractor={this.keyExtractor}
-                style={[style.listView, isSearch ? style.search : null]}
+                style={[style.listView, isSearch ? style.search : null, {height: deviceHeight - CONTAINER_HEIGHT_OFFSET}]}
                 sections={sections}
                 renderItem={this.renderItem}
                 renderSectionHeader={this.renderSectionHeader}
